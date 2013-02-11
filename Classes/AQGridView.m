@@ -120,7 +120,6 @@ NSString * const AQGridViewSelectionDidChangeNotification = @"AQGridViewSelectio
 	_flags.allowsSelection = 1;
     _flags.multipleSelection = 0;
 	_flags.usesPagedHorizontalScrolling = NO;
-	_flags.contentSizeFillsBounds = 1;
 }
 
 - (id)initWithFrame: (CGRect) frame
@@ -407,16 +406,6 @@ NSString * const AQGridViewSelectionDidChangeNotification = @"AQGridViewSelectio
 	[self setNeedsLayout];
 }
 
-- (BOOL) contentSizeGrowsToFillBounds
-{
-	return ( _flags.contentSizeFillsBounds == 1 );
-}
-
-- (void) setContentSizeGrowsToFillBounds: (BOOL) value
-{
-	_flags.contentSizeFillsBounds = (value ? 1 : 0);
-}
-
 - (void) setAnimatingCells: (NSSet *) set
 {
 	_animatingCells = set;
@@ -519,23 +508,6 @@ NSString * const AQGridViewSelectionDidChangeNotification = @"AQGridViewSelectio
 
 - (void) setContentSize: (CGSize) newSize
 {
-	if ( (_flags.contentSizeFillsBounds == 1) && (newSize.height < self.bounds.size.height) )
-		newSize.height = self.bounds.size.height;
-
-	if (self.gridFooterView)
-	{
-	    // In-call status bar influences footer position
-		CGRect statusRect = [UIApplication sharedApplication].statusBarFrame;
-	    CGFloat statusHeight = MIN(CGRectGetWidth(statusRect), CGRectGetHeight(statusRect))  - 20;
-
-	    CGFloat footerHeight = CGRectGetHeight(self.gridFooterView.bounds);
-	    CGFloat minimumHeight = statusHeight + CGRectGetHeight(self.bounds) + footerHeight;
-	    if (newSize.height < footerHeight + minimumHeight)
-	        newSize.height = minimumHeight;
-	}
-
-	newSize.height = fmax(newSize.height, self.frame.size.height);
-
 	CGSize oldSize = self.contentSize;
 	[super setContentSize: newSize];
 

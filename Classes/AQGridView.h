@@ -149,7 +149,6 @@ extern NSString * const AQGridViewSelectionDidChangeNotification;
 		unsigned	clipsContentWidthToBounds:1;
 		unsigned	isAnimatingUpdates:1;	// unused, see _animationCount instead
 		unsigned	requiresSelection:1;
-		unsigned	contentSizeFillsBounds:1;
 
 		unsigned	delegateWillDisplayCell:1;
 		unsigned	delegateWillSelectItem:1;
@@ -248,8 +247,6 @@ extern NSString * const AQGridViewSelectionDidChangeNotification;
 
 @property (nonatomic, assign) CGFloat leftContentInset;
 @property (nonatomic, assign) CGFloat rightContentInset;
-
-@property (nonatomic, assign) BOOL contentSizeGrowsToFillBounds;	// default is YES. Prior to iPhone OS 3.2, pattern colors tile from the bottom-left, necessitating that this be set to NO to avoid specially-constructed background patterns falling 'out of sync' with the cells displayed on top of it.
 
 @property (nonatomic, readonly) BOOL isAnimatingUpdates;
 
