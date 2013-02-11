@@ -245,6 +245,8 @@ extern NSString * const AQGridViewSelectionDidChangeNotification;
 @property (nonatomic, retain) UIView * gridHeaderView;
 @property (nonatomic, retain) UIView * gridFooterView;
 
+@property (nonatomic, assign) CGSize  minimumContentSizePadding;  // Minimum content size is based on bounds, sometimes you may want it more than that.
+
 @property (nonatomic, assign) CGFloat leftContentInset;
 @property (nonatomic, assign) CGFloat rightContentInset;
 

@@ -42,6 +42,7 @@
 {
 	AQGridView *				__unsafe_unretained _gridView;				// weak reference
 	CGSize						_boundsSize;
+    CGSize                      _minimumContentSizePadding;
 	AQGridViewLayoutDirection	_layoutDirection;
 	CGSize						_desiredCellSize;		// NB: 'cell' here means a grid cell -- i.e. constant size, tessellating
 	CGSize						_actualCellSize;
@@ -61,6 +62,7 @@
 
 @property (nonatomic) CGFloat topPadding, bottomPadding, leftPadding, rightPadding;
 @property (nonatomic) AQGridViewLayoutDirection layoutDirection;
+@property (nonatomic) CGSize minimumContentSizePadding;
 
 // notify this object of changes to the layout parameters
 - (void) gridViewDidChangeBoundsSize: (CGSize) boundsSize;

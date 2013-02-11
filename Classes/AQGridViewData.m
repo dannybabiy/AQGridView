@@ -43,7 +43,7 @@
 
 @implementation AQGridViewData
 
-@synthesize reorderedIndex=_reorderedIndex, numberOfItems=_numberOfItems, topPadding=_topPadding, bottomPadding=_bottomPadding, leftPadding=_leftPadding, rightPadding=_rightPadding, layoutDirection=_layoutDirection;
+@synthesize reorderedIndex=_reorderedIndex, numberOfItems=_numberOfItems, topPadding=_topPadding, bottomPadding=_bottomPadding, leftPadding=_leftPadding, rightPadding=_rightPadding, layoutDirection=_layoutDirection, minimumContentSizePadding=_minimumContentSizePadding;
 
 - (id) initWithGridView: (AQGridView *) gridView
 {
@@ -69,6 +69,7 @@
 	theCopy->_rightPadding = _rightPadding;
 	theCopy->_numberOfItems = _numberOfItems;
 	theCopy->_reorderedIndex = _reorderedIndex;
+    theCopy->_minimumContentSizePadding = _minimumContentSizePadding;
 	return ( theCopy );
 }
 
@@ -161,11 +162,17 @@
 	if ( _numberOfItems % numPerRow != 0 )
 		numRows++;
 	
-	CGFloat height = ( ((CGFloat)ceilf((CGFloat)numRows * _actualCellSize.height)) + _topPadding + _bottomPadding );
-	if (height < _gridView.bounds.size.height)
-		height = _gridView.bounds.size.height;
+	CGFloat height = ((CGFloat)ceilf((CGFloat)numRows * _actualCellSize.height)) + _topPadding + _bottomPadding;
+    CGFloat minHeight = _gridView.bounds.size.height + _minimumContentSizePadding.height;
+	if (height < minHeight)
+		height = minHeight;
+    
+    CGFloat width = ((CGFloat)ceilf(_actualCellSize.width * numPerRow)) + _leftPadding + _rightPadding;
+    CGFloat minWidth = _gridView.bounds.size.width + _minimumContentSizePadding.width;
+    if (width < minWidth)
+        width = minWidth;
 	
-	return ( CGSizeMake(((CGFloat)ceilf(_actualCellSize.width * numPerRow)) + _leftPadding + _rightPadding, height) );
+	return CGSizeMake(width, height);
 }
 
 - (NSUInteger) numberOfItemsPerRow
