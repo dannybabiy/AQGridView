@@ -937,7 +937,8 @@ NSString * const AQGridViewSelectionDidChangeNotification = @"AQGridViewSelectio
                          NSMutableIndexSet *newIndices = [[NSMutableIndexSet alloc] init];
                          [_selectedIndices enumerateIndexesUsingBlock:
                           ^(NSUInteger idx, BOOL *stop) {
-                              [newIndices addIndex:[info newIndexForOldIndex: idx]];
+                              NSInteger newIndex = [info newIndexForOldIndex: idx];
+                              if (newIndex != NSNotFound) [newIndices addIndex:newIndex];
                           }];
                          _selectedIndices = newIndices;
                          
