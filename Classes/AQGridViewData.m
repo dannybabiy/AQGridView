@@ -163,11 +163,13 @@
 		numRows++;
 	
 	CGFloat height = ((CGFloat)ceilf((CGFloat)numRows * _actualCellSize.height)) + _topPadding + _bottomPadding;
-    CGFloat minHeight = _gridView.bounds.size.height + _minimumContentSizePadding.height;
+    CGFloat contentInset = _gridView.contentInset.bottom + _gridView.contentInset.top;
+    CGFloat minHeight = _gridView.bounds.size.height + _minimumContentSizePadding.height - contentInset;
 	if (height < minHeight)
 		height = minHeight;
     
-    CGFloat width = ((CGFloat)ceilf(_actualCellSize.width * numPerRow)) + _leftPadding + _rightPadding;
+    contentInset = _gridView.contentInset.left + _gridView.contentInset.right;
+    CGFloat width = ((CGFloat)ceilf(_actualCellSize.width * numPerRow)) + _leftPadding + _rightPadding - contentInset;
     CGFloat minWidth = _gridView.bounds.size.width + _minimumContentSizePadding.width;
     if (width < minWidth)
         width = minWidth;
