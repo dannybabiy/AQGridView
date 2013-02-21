@@ -412,6 +412,7 @@ NSString * const AQGridViewSelectionDidChangeNotification = @"AQGridViewSelectio
 
 - (void)setMinimumContentSizePadding: (CGSize) value {
     _gridData.minimumContentSizePadding = value;
+    self.contentSize = [_gridData sizeForEntireGrid];
 }
 
 - (void) setAnimatingCells: (NSSet *) set
